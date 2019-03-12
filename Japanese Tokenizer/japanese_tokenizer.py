@@ -23,7 +23,8 @@ def japanese_tokenizer(input_file, output_file, word_dict_file = 'japanese_wordl
                 lines = input_file.readlines()
                 for line in lines:
                     line = line.replace('\n', '')
-                    output_file.write('{0}\n'.format(maxmatch(line, word_dict)))
+                    string_to_write_format = '{0}\n'.format(' '.join(maxmatch(line, word_dict))) # ' '.join() will add space and make string out of list of strings
+                    output_file.write(string_to_write_format)
     return
 
 
@@ -45,28 +46,29 @@ def maxmatch(sentence, word_dict):
                        -> recursively loop through our new sentence until we get the word matched
             - if not found -> pop first letter from the sentence and recursively call the algorithm with remaining sentence
     '''
-    if len(sentence) == 0:
-        return ''
-    for i in range(len(sentence)):
-        word = sentence[ :len(sentence) - i]
-        #print(word)
-        if word in word_dict:
-            segmented_sentence = word + ' '
-            sentence = sentence[len(word): ]
-            #print(sentence)
-            return segmented_sentence + maxmatch(sentence, word_dict)
-    return sentence[0] + ' ' + maxmatch(sentence[1:], word_dict)
+    # if len(sentence) == 0:
+    #     return ''
+    # for i in range(len(sentence)):
+    #     word = sentence[ :len(sentence) - i]
+    #     #print(word)
+    #     if word in word_dict:
+    #         segmented_sentence = word + ' '
+    #         sentence = sentence[len(word): ]
+    #         #print(sentence)
+    #         return segmented_sentence + maxmatch(sentence, word_dict)
+    # return sentence[0] + ' ' + maxmatch(sentence[1:], word_dict)
 
     # NOTE: if there's spacing issue we could use list() instead and helper ' '.join() function to return string
-    # if len(sentence) == 0:
-    #     return []
-    # for i in range(len(sentence)):
-    #     word = sentence[:len(sentence) - i]
-    #     if word in word_dict:
-    #         words_list = [word]
-    #         sentence = sentence[len(word):]
-    #         return words_list + maxmatch(sentence, word_dict)
-    # return list(sentence[0]) + maxmatch(sentence[1:], word_dict)
+        # above string function will add extra spaces at the end so -> better to use list
+    if len(sentence) == 0:
+        return []
+    for i in range(len(sentence)):
+        word = sentence[:len(sentence) - i]
+        if word in word_dict:
+            words_list = [word]
+            sentence = sentence[len(word):]
+            return words_list + maxmatch(sentence, word_dict)
+    return list(sentence[0]) + maxmatch(sentence[1:], word_dict)
 
 
 if __name__ == '__main__':
