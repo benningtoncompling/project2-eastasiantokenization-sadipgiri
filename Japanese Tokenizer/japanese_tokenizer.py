@@ -20,9 +20,8 @@ def japanese_tokenizer(input_file, output_file, word_dict_file = 'japanese_wordl
         with open(input_file, 'r') as input_file:
             with open(output_file, 'w') as output_file:
                 word_dict = word_dict_file.read().splitlines()
-                lines = input_file.readlines()
+                lines = input_file.read().splitlines()
                 for line in lines:
-                    line = line.replace('\n', '')
                     string_to_write_format = '{0}\n'.format(' '.join(maxmatch(line, word_dict))) # ' '.join() will add space and make string out of list of strings
                     output_file.write(string_to_write_format)
     return
@@ -60,6 +59,7 @@ def maxmatch(sentence, word_dict):
 
     # NOTE: if there's spacing issue we could use list() instead and helper ' '.join() function to return string
         # above string function will add extra spaces at the end so -> better to use list
+        # I think JUSTIN is also doing string manipulation so there's space in each line of his sample_out.txt file
     if len(sentence) == 0:
         return []
     for i in range(len(sentence)):
@@ -69,7 +69,6 @@ def maxmatch(sentence, word_dict):
             sentence = sentence[len(word):]
             return words_list + maxmatch(sentence, word_dict)
     return list(sentence[0]) + maxmatch(sentence[1:], word_dict)
-
 
 if __name__ == '__main__':
     lst = sys.argv
