@@ -23,9 +23,9 @@ def accuracy(user_file='sadip_out.txt', gold_standard_file='gold_standard.txt'):
             for i in range(len(user_lines)):
                 if user_lines[i] == gold_standard_lines[i]:
                     num_matched_lines += 1
-                # else:
-                #     print(user_lines[i])
-                #     print(gold_standard_lines[i])
+                else:
+                    print(user_lines[i])
+                    #print(gold_standard_lines[i])
     return (num_matched_lines/len(user_lines)) * 100
 
 if __name__ == '__main__':
