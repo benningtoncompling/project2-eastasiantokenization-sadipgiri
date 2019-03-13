@@ -15,6 +15,7 @@ c3 = ['ง', 'น', 'ม', 'ด', 'บ', 'ก', 'ย', 'ว']
 
 def tokenize(line):
 	#define a function that will take in a line of Thai text (without spaces), and return the line with spaces between the words
+	pass
 
 with open(in_file, 'r') as open_in:
 	with open(out_file, 'w') as open_out:
